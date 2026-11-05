@@ -7,7 +7,7 @@
 <meta name="description" content="Ayush Rawat is a first-year student at Newton School of Technology, Rishihood University, exploring software, visual design, and creative technology.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Anton&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 
@@ -4040,34 +4040,68 @@ body {
   .stats-grid-bento { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .stats-grid-bento .stat-box:last-child { grid-column: 1 / -1; }
 }
+
+/*============================================================
+  REEL INTRO GATE + MINIMAL ORANGE ACCENTS
+============================================================*/
+:root { --orange: #FF6600; }
+.reel-overlay { position: fixed; inset: 0; z-index: 999999; background: #070707; color: #f5f5f5; display: flex; align-items: center; justify-content: center; cursor: default; transition: opacity .7s var(--ease); background-image: repeating-linear-gradient(0deg, transparent 0 47px, rgba(255,255,255,.022) 47px 48px); }
+.reel-overlay.is-leaving { opacity: 0; pointer-events: none; }
+.reel-overlay button { cursor: pointer; }
+.reel-canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: none; }
+.reel-overlay[data-state="playing"] .reel-canvas { display: block; }
+.reel-overlay[data-state="playing"] .reel-gate { display: none; }
+.reel-gate { position: relative; width: min(640px, 90vw); padding: 46px 40px 34px; border: 1px solid rgba(255,255,255,.16); background: linear-gradient(112deg, #0a0a0a 0 60%, #0f0f0f 60%); }
+.reel-gate::before { content: ""; position: absolute; left: -1px; top: -1px; width: 64px; height: 3px; background: var(--orange); }
+.reel-gate::after { content: ""; position: absolute; right: 18px; top: 18px; width: 46px; height: 12px; background: repeating-linear-gradient(110deg, var(--orange) 0 4px, transparent 4px 9px); }
+.reel-gate-tag { font: 600 .68rem/1 var(--mono); letter-spacing: .2em; color: rgba(235,235,235,.65); margin-bottom: 26px; }
+.reel-gate-title { font: 900 clamp(2.6rem, 9vw, 4.4rem)/.95 var(--font); letter-spacing: -.04em; text-transform: uppercase; }
+.reel-gate-title em { font-style: normal; color: var(--orange); }
+.reel-gate-sub { margin: 16px 0 28px; color: rgba(235,235,235,.7); font-size: .95rem; }
+.reel-gate-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.reel-btn { font: 700 .74rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 14px 18px; border: 1px solid rgba(255,255,255,.28); background: transparent; color: #f5f5f5; transition: background .2s, border-color .2s, color .2s; }
+.reel-btn:hover { border-color: var(--orange); color: #fff; }
+.reel-btn-primary { background: var(--orange); border-color: var(--orange); color: #0a0a0a; }
+.reel-btn-primary:hover { background: #ff8a1f; border-color: #ff8a1f; color: #0a0a0a; }
+.reel-skip-link { margin-top: 22px; padding: 4px 0; background: none; border: 0; font: 600 .7rem/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: rgba(235,235,235,.6); transition: color .2s; }
+.reel-skip-link:hover { color: var(--orange); }
+.reel-ctrl { position: absolute; right: 22px; bottom: 20px; display: flex; gap: 10px; z-index: 3; }
+.reel-ctrl[hidden] { display: none; }
+.reel-btn-sm { padding: 10px 13px; font-size: .66rem; background: rgba(0,0,0,.55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+@media (max-width: 560px) { .reel-gate { padding: 38px 22px 28px; } .reel-btn { flex: 1 1 100%; text-align: center; } }
+
+/* Minimal orange accents */
+::selection { background: rgba(255,102,0,.4); color: #fff; }
+html { scrollbar-color: var(--orange) #000; }
+::-webkit-scrollbar-thumb { background: rgba(255,102,0,.55); }
+::-webkit-scrollbar-thumb:hover { background: var(--orange); }
+.scroll-progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; background: var(--orange); transform: scaleX(0); transform-origin: left; z-index: 10002; pointer-events: none; }
+.nav-item:not(.nav-cta):hover, .nav-item.active:not(.nav-cta) { box-shadow: inset 0 -2px 0 var(--orange); }
+.cursor-dot { background: var(--orange); box-shadow: 0 0 10px rgba(255,102,0,.7); mix-blend-mode: normal; }
+.cursor-ring.hovering { border-color: var(--orange); background: rgba(255,102,0,.07); box-shadow: none; }
+.footer-highlight { color: var(--orange); }
+.toast-dot { background: var(--orange); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
 </style>
 </head>
 <body>
 
-<!-- Kinetic editorial intro -->
-<div class="tech-intro-overlay" id="introOverlay" role="status" aria-label="Portfolio introduction">
-  <div class="intro-grain" aria-hidden="true"></div>
-  <div class="intro-composition" id="introWindow">
-    <div class="intro-artwork" aria-hidden="true">
-      <span class="intro-block intro-block-one"></span>
-      <span class="intro-block intro-block-two"></span>
-      <span class="intro-block intro-block-three"></span>
-      <span class="intro-sun"></span>
-      <span class="intro-spark intro-spark-one"></span>
-      <span class="intro-spark intro-spark-two"></span>
-      <span class="intro-spark intro-spark-three"></span>
+<!-- Motion reel intro: choose sound / no sound / skip -->
+<div class="reel-overlay" id="introOverlay" data-state="gate" role="dialog" aria-modal="true" aria-label="Portfolio introduction">
+  <canvas class="reel-canvas" id="reelCanvas" width="1920" height="1080" aria-hidden="true"></canvas>
+  <div class="reel-gate" id="reelGate">
+    <p class="reel-gate-tag">AYUSH RAWAT · PORTFOLIO 2026</p>
+    <h2 class="reel-gate-title">Ready to <em>race?</em></h2>
+    <p class="reel-gate-sub">A 20-second motion intro. Pick how you want to enter.</p>
+    <div class="reel-gate-actions">
+      <button class="reel-btn reel-btn-primary" id="playSound" type="button">▶ Play with sound</button>
+      <button class="reel-btn" id="playMute" type="button">▶ Play without sound</button>
     </div>
-    <div class="intro-copy">
-      <p class="intro-kicker"><span></span> An independent mind in progress</p>
-      <p class="intro-eyebrow">AYUSH RAWAT <span>·</span> SONIPAT, INDIA</p>
-      <h2 class="intro-headline">Curiosity<br>takes <em>form.</em></h2>
-      <p class="intro-subline" id="introStatus" aria-live="polite">A little code. A little wonder.</p>
-    </div>
-    <div class="intro-footer">
-      <div class="intro-progress-track" aria-hidden="true"><span class="it-progress-fill" id="introProgressFill"></span></div>
-      <span class="it-percent-text" id="introPercent">00</span>
-      <button class="it-skip-btn" type="button" onclick="skipIntro()">Enter portfolio <span aria-hidden="true">↗</span></button>
-    </div>
+    <button class="reel-skip-link" id="skipGate" type="button">Skip intro ↗</button>
+  </div>
+  <div class="reel-ctrl" id="reelCtrl" hidden>
+    <button class="reel-btn reel-btn-sm" id="reelSnd" type="button" aria-pressed="false">Sound: off</button>
+    <button class="reel-btn reel-btn-sm" id="reelSkip" type="button">Skip intro ↗</button>
   </div>
 </div>
 
@@ -4088,6 +4122,8 @@ body {
   <span class="toast-dot"></span>
   <span id="toastMsg">Action completed</span>
 </div>
+
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
 <!-- NAVIGATION -->
 <nav class="nav" id="mainNav">
@@ -4870,6 +4906,109 @@ body {
      ENGINE & ANIMATION SCRIPT
      ═══════════════════════════════════════════════ -->
 <script>
+window.Reel=(function(){
+const cv=document.getElementById('reelCanvas');if(!cv)return{start(){},stop(){},setSound(){},sound:false};
+const ctx=cv.getContext('2d'),W=1920,H=1080,D=20,O='#FF6600',O2='#FF9A3C',K='#0b0b0b',RED='#ff2a00';
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),pr=(t,a,b)=>cl((t-a)/(b-a));
+const eo=x=>1-Math.pow(1-x,3),eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2,ex=x=>x>=1?1:1-Math.pow(2,-10*x);
+const eb=x=>1+2.70158*Math.pow(x-1,3)+1.70158*Math.pow(x-1,2);
+const rnd=s=>{s=Math.sin(s*127.1)*43758.5453;return s-Math.floor(s)};
+const F=s=>`${s}px Anton, Impact, sans-serif`;
+function word(txt,cx,cy,size,p,col=O,al='center'){if(p<=0)return;ctx.save();ctx.font=F(size);ctx.textAlign=al;ctx.textBaseline='alphabetic';ctx.beginPath();ctx.rect(0,cy-size*.95,W,size*1.25);ctx.clip();ctx.fillStyle=col;ctx.fillText(txt,cx,cy+(1-ex(p))*size*1.1);ctx.restore();}
+function spaced(txt,cx,y,size,sp,col){ctx.save();ctx.font=F(size);ctx.textAlign='left';ctx.fillStyle=col;const ws=[...txt].map(c=>ctx.measureText(c).width),tot=ws.reduce((a,b)=>a+b,0)+sp*(txt.length-1);let x=cx-tot/2;[...txt].forEach((c,i)=>{ctx.fillText(c,x,y);x+=ws[i]+sp});ctx.restore();}
+function s1(t){
+for(let i=0;i<46;i++){const y=rnd(i)*H,len=200+rnd(i+9)*700,sp=1800+rnd(i+3)*3200,L=W+len,x=(((rnd(i+5)*W*2-t*sp)%L)+L)%L-len;ctx.fillStyle=rnd(i+1)>.7?O2:O;ctx.globalAlpha=.25+rnd(i+2)*.6;ctx.fillRect(x,y,len,2+rnd(i+4)*4);}
+ctx.globalAlpha=1;word('MOTION',960,380,300,pr(t,.2,.8));word('HAS NO',960,640,300,pr(t,.9,1.5),'#f4f4f4');word('BRAKES',960,900,300,pr(t,1.6,2.2));}
+function s2(t){
+const cx=960,cy=570,R=330,a0=Math.PI*.75,sw=Math.PI*1.5,rev=cl(eio(pr(t,.3,3))+(t>3?Math.sin(t*40)*.01:0),0,1);
+ctx.save();ctx.translate(cx,cy);
+ctx.save();ctx.rotate(t*.9);ctx.setLineDash([3,24]);ctx.lineWidth=7;ctx.strokeStyle=O;ctx.beginPath();ctx.arc(0,0,R+95,0,7);ctx.stroke();ctx.restore();
+ctx.save();ctx.rotate(-t*.5);ctx.setLineDash([220,70,60,70]);ctx.lineWidth=3;ctx.strokeStyle='#555';ctx.beginPath();ctx.arc(0,0,R+128,0,7);ctx.stroke();ctx.restore();
+for(let i=0;i<=60;i++){if(t<i*.01)break;const a=a0+sw*i/60,big=i%5==0,L=big?56:28,hot=i>50,co=Math.cos(a),si=Math.sin(a);
+ctx.strokeStyle=hot?RED:(big?'#fff':'#777');ctx.lineWidth=big?6:3;ctx.beginPath();ctx.moveTo(co*(R-L),si*(R-L));ctx.lineTo(co*R,si*R);ctx.stroke();
+if(big){ctx.fillStyle=hot?RED:'#bbb';ctx.font=F(44);ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(i/5,co*(R-100),si*(R-100));}}
+ctx.lineWidth=20;ctx.shadowColor=O;ctx.shadowBlur=40;ctx.strokeStyle=O;ctx.beginPath();ctx.arc(0,0,R+32,a0,a0+sw*Math.min(rev,.83)+.001);ctx.stroke();
+if(rev>.83){ctx.strokeStyle=RED;ctx.beginPath();ctx.arc(0,0,R+32,a0+sw*.83,a0+sw*rev);ctx.stroke();}
+ctx.save();ctx.rotate(a0+sw*rev);ctx.fillStyle=O;ctx.beginPath();ctx.moveTo(-30,-9);ctx.lineTo(R-30,-2);ctx.lineTo(R-30,2);ctx.lineTo(-30,9);ctx.fill();ctx.restore();
+ctx.shadowBlur=0;ctx.fillStyle=K;ctx.beginPath();ctx.arc(0,0,34,0,7);ctx.fill();ctx.strokeStyle=O;ctx.lineWidth=8;ctx.stroke();ctx.restore();
+ctx.textAlign='center';ctx.textBaseline='alphabetic';ctx.fillStyle='#fff';ctx.font=F(130);ctx.fillText(String(Math.round(rev*12000)).padStart(5,'0'),cx,cy+250);
+ctx.fillStyle=O;ctx.font=F(40);ctx.fillText('RPM',cx,cy+305);
+if(rev>.83&&Math.floor(t*8)%2){ctx.textAlign='left';ctx.fillStyle=RED;ctx.font=F(90);ctx.fillText('REDLINE',110,cy+30);}
+word('GEAR 6',1810,cy+30,90,pr(t,.6,1.2),'#f4f4f4','right');}
+function slice(txt,cx,cy,size,p,outline){ctx.save();ctx.font=F(size);ctx.textAlign='center';ctx.textBaseline='alphabetic';const n=10,h=size*1.25/n,y0=cy-size*.95;
+for(let k=0;k<n;k++){const pk=pr(p,k*.04,k*.04+.5),off=(1-ex(pk))*1500*(k%2?1:-1);ctx.save();ctx.beginPath();ctx.rect(0,y0+k*h,W,h+1);ctx.clip();
+if(outline){ctx.strokeStyle=O;ctx.lineWidth=5;ctx.strokeText(txt,cx+off,cy);}else{ctx.fillStyle=O;ctx.fillText(txt,cx+off,cy);}ctx.restore();}ctx.restore();}
+function s3(t){
+ctx.save();ctx.globalAlpha=.12;ctx.fillStyle=O;for(let i=-4;i<20;i++){const x=i*180+(t*260)%180;ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x+90,0);ctx.lineTo(x-290,H);ctx.lineTo(x-380,H);ctx.fill();}ctx.restore();
+slice('READY TO',960,470,330,pr(t,.2,1.4),true);slice('RACE',960,950,470,pr(t,.5,1.7),false);
+const f=pr(t,1.7,2);if(f>0&&f<1){ctx.fillStyle=`rgba(255,255,255,${.5*(1-f)})`;ctx.fillRect(0,0,W,H);}
+word('ORANGE  ·  BLACK  ·  ADRENALINE',960,1015,32,pr(t,2.2,2.8),'#bbb');}
+function s4(t){
+const hz=430,vx=960;ctx.fillStyle='#050505';ctx.fillRect(0,hz,W,H-hz);
+const rg=ctx.createRadialGradient(vx,hz,0,vx,hz,700);rg.addColorStop(0,'rgba(255,102,0,.85)');rg.addColorStop(1,'rgba(255,102,0,0)');ctx.fillStyle=rg;ctx.fillRect(0,0,W,hz+120);
+ctx.strokeStyle=O;for(let k=0;k<14;k++){const z=((k/14)+t*1.4)%1,y=hz+(H-hz)*z*z;ctx.globalAlpha=z;ctx.lineWidth=2+z*12;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+ctx.globalAlpha=.6;ctx.lineWidth=3;for(let i=-10;i<=10;i++){ctx.beginPath();ctx.moveTo(vx,hz);ctx.lineTo(vx+i*260,H);ctx.stroke();}ctx.globalAlpha=1;
+const sc=eb(pr(t,0,.9)),rot=t*10+t*t*5;ctx.save();ctx.translate(960,650);ctx.scale(sc,sc);
+ctx.shadowColor=O;ctx.shadowBlur=50;ctx.fillStyle='#070707';ctx.beginPath();ctx.arc(0,0,300,0,7);ctx.fill();ctx.strokeStyle=O;ctx.lineWidth=12;ctx.stroke();ctx.shadowBlur=0;
+ctx.strokeStyle='#2a2a2a';ctx.lineWidth=40;ctx.beginPath();ctx.arc(0,0,250,0,7);ctx.stroke();
+for(let j=3;j>=0;j--){ctx.save();ctx.rotate(rot-j*.07);ctx.globalAlpha=j?.18:1;ctx.fillStyle=O;for(let s=0;s<10;s++){ctx.save();ctx.rotate(s*Math.PI/5);ctx.fillRect(60,-11,175,22);ctx.restore();}ctx.restore();}
+ctx.globalAlpha=1;ctx.save();ctx.rotate(-rot*.5);ctx.setLineDash([14,14]);ctx.strokeStyle='#ddd';ctx.lineWidth=8;ctx.beginPath();ctx.arc(0,0,130,0,7);ctx.stroke();ctx.restore();
+ctx.fillStyle=K;ctx.beginPath();ctx.arc(0,0,50,0,7);ctx.fill();ctx.strokeStyle=O;ctx.lineWidth=8;ctx.stroke();ctx.restore();
+ctx.textAlign='left';ctx.textBaseline='alphabetic';ctx.fillStyle='#fff';ctx.font=F(220);ctx.fillText(Math.round(eo(pr(t,.4,3.4))*299),110,330);ctx.fillStyle=O;ctx.font=F(60);ctx.fillText('KM/H',118,400);
+word('0 TO 100',1810,330,110,pr(t,.6,1.2),'#f4f4f4','right');word('IN 2.9 SEC',1810,450,110,pr(t,.8,1.4),O,'right');}
+function s5(t){
+const n=120,e=eo(pr(t,0,.5));
+for(let r=0;r<9;r++)for(let c=0;c<16;c++){const d=Math.hypot(c-7.5,r-4)/9,s=Math.sin(t*6-d*7)*.5+.5,sz=n*(.15+.8*s)*e;ctx.fillStyle=(r+c)%2?O:'#1c1c1c';ctx.fillRect(c*n+n/2-sz/2,r*n+n/2-sz/2,sz,sz);}
+const bp=eio(pr(t,.2,.7));ctx.fillStyle=K;ctx.fillRect(0,540-190*bp,W,380*bp);ctx.fillStyle=O;ctx.fillRect(0,540-190*bp-8,W,8);ctx.fillRect(0,540+190*bp,W,8);
+word('PURE ADRENALINE',960,632,230,pr(t,.7,1.3));}
+const NM='AYUSDOGE';
+function name(t,col,glow){ctx.save();ctx.font=F(340);ctx.textBaseline='alphabetic';ctx.textAlign='left';if(glow){ctx.shadowColor=O;ctx.shadowBlur=glow;}
+const sp=16,ws=[...NM].map(c=>ctx.measureText(c).width),tot=ws.reduce((a,b)=>a+b,0)+sp*(NM.length-1);let x=960-tot/2;
+[...NM].forEach((c,i)=>{const p=pr(t,.55+i*.07,1.15+i*.07);if(p>0){ctx.save();ctx.beginPath();ctx.rect(x-10,760-340*.95,ws[i]+20,340*1.3);ctx.clip();ctx.fillStyle=col;ctx.fillText(c,x,760+(1-ex(p))*400);ctx.restore();}x+=ws[i]+sp;});ctx.restore();}
+function s6(t){
+const g=ctx.createRadialGradient(960,540,0,960,540,900);g.addColorStop(0,'rgba(255,102,0,.25)');g.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+const p1=eo(pr(t,.3,.9));ctx.fillStyle=O;ctx.fillRect(960-420-250*p1,382,250*p1,6);ctx.fillRect(960+420,382,250*p1,6);
+ctx.globalAlpha=p1;spaced('CREATED BY',960,405,56,22,O);ctx.globalAlpha=1;name(t,O,30*pr(t,1.2,1.6));
+const fl=pr(t,1,1.6);if(fl>0&&fl<1){const r=ctx.createRadialGradient(960,560,0,960,560,1000*fl+1);r.addColorStop(0,`rgba(255,160,60,${.55*(1-fl)})`);r.addColorStop(1,'rgba(255,102,0,0)');ctx.fillStyle=r;ctx.fillRect(0,0,W,H);}
+const sw=pr(t,1.4,2.1);if(sw>0&&sw<1){const x=-300+(W+600)*sw;ctx.save();ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x+170,0);ctx.lineTo(x-30,H);ctx.lineTo(x-200,H);ctx.clip();name(t,'#fff',0);ctx.restore();}
+const u=eio(pr(t,1.5,2));ctx.fillStyle=O;ctx.fillRect(960-560*u,815,1120*u,10);
+ctx.globalAlpha=eo(pr(t,1.8,2.3));spaced('MOTION DESIGNER  ·  PORTFOLIO 2026',960,900,38,10,'#cfcfcf');ctx.globalAlpha=1;}
+const B=[0,3.2,7.2,11.2,15.2,17.6,20];
+function wipe(t,b){const p=(t-b+.25)/.5;if(p<=0||p>=1)return;const f=p*(W+2900);ctx.fillStyle=O;ctx.beginPath();ctx.moveTo(f-2600,0);ctx.lineTo(f,0);ctx.lineTo(f-300,H);ctx.lineTo(f-2900,H);ctx.fill();ctx.fillStyle='#fff';ctx.beginPath();ctx.moveTo(f,0);ctx.lineTo(f+26,0);ctx.lineTo(f-274,H);ctx.lineTo(f-300,H);ctx.fill();}
+function hud(t){ctx.save();ctx.strokeStyle=O;ctx.lineWidth=4;const m=48,l=60;
+[[m,m,1,1],[W-m,m,-1,1],[m,H-m,1,-1],[W-m,H-m,-1,-1]].forEach(([x,y,a,b])=>{ctx.beginPath();ctx.moveTo(x+a*l,y);ctx.lineTo(x,y);ctx.lineTo(x,y+b*l);ctx.stroke();});
+ctx.font='500 22px ui-monospace,Menlo,Consolas,monospace';ctx.fillStyle='#fff';ctx.globalAlpha=.85;ctx.textBaseline='alphabetic';ctx.textAlign='left';
+ctx.fillText('PORTFOLIO 2026',84,96);const f=Math.floor(t*30);ctx.fillText('00:'+String(Math.floor(f/30)).padStart(2,'0')+':'+String(f%30).padStart(2,'0'),84,H-84);
+ctx.textAlign='right';ctx.fillText('REC',W-84,96);if(Math.floor(t*2)%2||t>=D){ctx.fillStyle=RED;ctx.globalAlpha=1;ctx.beginPath();ctx.arc(W-140,89,8,0,7);ctx.fill();}
+ctx.globalAlpha=1;ctx.fillStyle=O;ctx.fillRect(0,H-6,W*t/D,6);ctx.restore();}
+function render(t){
+ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.fillStyle=K;ctx.fillRect(0,0,W,H);
+let i=0;while(i<5&&t>=B[i+1])i++;const lt=t-B[i],k=i>0?Math.max(0,1-lt*4):0;
+ctx.save();ctx.translate((rnd(t*60)-.5)*30*k,(rnd(t*60+7)-.5)*30*k);[s1,s2,s3,s4,s5,s6][i](lt);ctx.restore();
+for(let j=1;j<6;j++)wipe(t,B[j]);
+const v=ctx.createRadialGradient(960,540,400,960,540,1250);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.6)');ctx.fillStyle=v;ctx.fillRect(0,0,W,H);
+ctx.fillStyle='#fff';ctx.globalAlpha=.05;for(let n=0;n<90;n++)ctx.fillRect(Math.random()*W,Math.random()*H,2,2);ctx.globalAlpha=1;hud(t);}
+/* audio: synthesized engine rev */
+let ac,osc,snd=false;
+const KF=[[0,70,.05],[3.2,150,.06],[3.4,90,.07],[6,520,.09],[7.1,560,.09],[7.3,200,.07],[11,260,.08],[11.3,200,.07],[15,420,.09],[15.3,150,.07],[17.5,200,.07],[17.7,90,.06],[19,60,.05],[20,40,0]];
+function kv(t){for(let i=1;i<KF.length;i++){if(t<=KF[i][0]){const a=KF[i-1],b=KF[i],u=(t-a[0])/(b[0]-a[0]);return[a[1]+(b[1]-a[1])*u,a[2]+(b[2]-a[2])*u];}}return[40,0];}
+function aStop(){try{if(osc){osc.stop();osc=null;}}catch(e){}}
+function aStart(t){if(!snd||!ac||t>=D)return;aStop();try{osc=ac.createOscillator();osc.type='sawtooth';const lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=700;const ga=ac.createGain();osc.connect(lp);lp.connect(ga);ga.connect(ac.destination);
+const n=ac.currentTime,v=kv(t);osc.frequency.setValueAtTime(v[0],n);ga.gain.setValueAtTime(v[1],n);KF.forEach(([kt,f,g])=>{if(kt>t){osc.frequency.linearRampToValueAtTime(f,n+kt-t);ga.gain.linearRampToValueAtTime(g,n+kt-t);}});osc.start();osc.stop(n+D-t+.1);}catch(e){}}
+/* player */
+let gen=0,T=0,run=false,last=0,raf=0,done=null,holdTimer=0;
+function tick(now){if(!run)return;T=Math.min(D,T+Math.min((now-last)/1000,.1));last=now;render(T);
+if(T>=D){run=false;aStop();holdTimer=setTimeout(()=>done&&done(),900);return;}raf=requestAnimationFrame(tick);}
+const api={
+start(withSound,cb){const g=++gen;done=cb;T=0;this.setSound(withSound);
+Promise.race([document.fonts.load('100px Anton'),new Promise(r=>setTimeout(r,1200))]).catch(()=>{}).then(()=>{if(run||g!==gen)return;run=true;last=performance.now();aStart(0);raf=requestAnimationFrame(tick);});},
+stop(){gen++;run=false;cancelAnimationFrame(raf);clearTimeout(holdTimer);aStop();},
+setSound(on){snd=!!on;if(snd){try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();ac.resume();}catch(e){snd=false;}if(run)aStart(T);}else aStop();},
+get sound(){return snd;}};
+return api;})();
+</script>
+
+<script>
 (() => {
   'use strict';
 
@@ -5328,81 +5467,78 @@ body {
     }
   });
 
-  /* ── 1. TECH INTRO TERMINAL LOADER (Cybernetic Boot Sequence) ── */
+  /* ── 1. REEL INTRO (gate → 20s motion reel → site) ── */
   const introOverlay = $('#introOverlay');
-  const introWindow = $('#introWindow');
-  const introStatus = $('#introStatus');
-  const introProgressFill = $('#introProgressFill');
-  const introPercent = $('#introPercent');
-
-  const bootLines = [
-    'A little code. A little wonder.',
-    'Exploring what could be.',
-    'Turning curiosity into craft.',
-    'Welcome to my corner of the internet.'
-  ];
-
-  let currentLine = 0;
+  const reelCtrl = $('#reelCtrl');
+  const reelSnd = $('#reelSnd');
   let introFinished = false;
-  let introTimer = 0;
+  let introPlaying = false;
+  document.body.style.overflow = 'hidden';
 
-  function updateIntroProgress(val) {
-    const progress = Math.min(100, Math.floor(val));
-    if (introProgressFill) introProgressFill.style.width = progress + '%';
-    if (introPercent) introPercent.textContent = String(progress).padStart(2, '0');
-  }
-
-  function appendBootLine() {
-    if (introFinished) return;
-    if (currentLine < bootLines.length) {
-      if (introStatus) introStatus.textContent = bootLines[currentLine];
-      currentLine++;
-      updateIntroProgress((currentLine / bootLines.length) * 100);
-      introTimer = window.setTimeout(appendBootLine, 420);
-    } else {
-      updateIntroProgress(100);
-      introTimer = window.setTimeout(finishTechIntro, 460);
-    }
+  function updateSoundBtn() {
+    const on = !!(window.Reel && Reel.sound);
+    reelSnd.textContent = 'Sound: ' + (on ? 'on' : 'off');
+    reelSnd.setAttribute('aria-pressed', String(on));
   }
 
   function finishTechIntro() {
     if (introFinished) return;
     introFinished = true;
-    window.clearTimeout(introTimer);
-    updateIntroProgress(100);
-
-    // Let the composition dissolve into the page.
-    if (introWindow) {
-      introWindow.style.transform = 'scale(1.025) translateY(-8px)';
-      introWindow.style.opacity = '0';
-    }
+    if (window.Reel) Reel.stop();
+    document.body.style.overflow = '';
     if (introOverlay) {
-      const duration = isReduced ? '0ms' : '650ms';
-      introOverlay.style.transition = `opacity ${duration} var(--ease), transform ${duration} var(--ease)`;
-      introOverlay.style.opacity = '0';
-      introOverlay.style.transform = 'scale(1.015)';
+      introOverlay.classList.add('is-leaving');
       introOverlay.setAttribute('aria-hidden', 'true');
       window.setTimeout(() => {
         introOverlay.style.display = 'none';
         initAnimations();
-      }, isReduced ? 0 : 650);
+      }, isReduced ? 0 : 700);
+    } else {
+      window.setTimeout(initAnimations, 0);
     }
   }
 
-  window.skipIntro = function() {
-    finishTechIntro();
-  };
+  function playIntro(withSound) {
+    if (introFinished || introPlaying) return;
+    introPlaying = true;
+    introOverlay.dataset.state = 'playing';
+    reelCtrl.hidden = false;
+    Reel.start(withSound, finishTechIntro);
+    updateSoundBtn();
+    reelSnd.focus({ preventScroll: true });
+  }
+
+  $('#playSound').addEventListener('click', () => playIntro(true));
+  $('#playMute').addEventListener('click', () => playIntro(false));
+  $('#skipGate').addEventListener('click', finishTechIntro);
+  $('#reelSkip').addEventListener('click', finishTechIntro);
+  reelSnd.addEventListener('click', () => { Reel.setSound(!Reel.sound); updateSoundBtn(); });
+  window.skipIntro = finishTechIntro;
+
+  // Warm the display font while the visitor chooses.
+  if (document.fonts && document.fonts.load) document.fonts.load('100px Anton').catch(() => {});
 
   // Reduced-motion users skip the animated introduction.
   if (isReduced) finishTechIntro();
-  else introTimer = window.setTimeout(appendBootLine, 220);
+  else window.setTimeout(() => { const p = $('#playSound'); if (p && !introFinished) p.focus({ preventScroll: true }); }, 120);
 
-  // Keyboard shortcut: ESC or Space or Enter skips intro immediately
+  // Escape skips at any point; Space/Enter skip while the reel is playing.
   window.addEventListener('keydown', (e) => {
-    if (!introFinished && (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter')) {
-      finishTechIntro();
-    }
+    if (introFinished) return;
+    if (e.key === 'Escape') finishTechIntro();
+    else if (introPlaying && (e.key === ' ' || e.key === 'Enter') && document.activeElement.tagName !== 'BUTTON') finishTechIntro();
   });
+
+  /* ── Scroll progress hairline ── */
+  const scrollBar = $('#scrollProgress');
+  if (scrollBar) {
+    const updateScrollBar = () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      scrollBar.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, window.scrollY / h) : 0) + ')';
+    };
+    window.addEventListener('scroll', updateScrollBar, { passive: true });
+    updateScrollBar();
+  }
 
   /* ── 2. LIVE CLOCK (Sonipat, IST) ── */
   function updateClock() {
